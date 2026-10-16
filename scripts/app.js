@@ -16,7 +16,6 @@ function closeMenu() {
   scrim.hidden = true;
 }
 function render() {
-  window.AshenReader.unmount();
   const route = window.AshenReader.resolve(location.hash);
   const key = location.hash.slice(1);
   const page = route ? 'chapters' : (Object.hasOwn(window.AshenPages, key) ? key : 'home');
@@ -31,7 +30,7 @@ function render() {
   });
   closeMenu();
   window.scrollTo(0, 0);
-  if (route && entered) window.AshenReader.mount(route);
+  if (route) window.AshenReadingSettings.apply();
 }
 let entering = false;
 let entered = false;
@@ -71,9 +70,30 @@ function enterSite(event) {
   });
 }
 window.addEventListener('message', enterSite);
-window.addEventListener('hashchange', () => {
+let navigationId = 0;
+let transition = null;
+window.addEventListener('hashchange', async () => {
+  const ticket = ++navigationId;
+  // Save the outgoing text before changing its DOM or scroll position.
+  window.AshenReader.unmount();
+  if (transition) transition.cancel();
+  const animate = entered && !matchMedia('(prefers-reduced-motion: reduce)').matches && typeof content.animate === 'function';
+  if (animate) {
+    transition = content.animate([{opacity:1},{opacity:0}], {duration:120,easing:'ease-out',fill:'forwards'});
+    try { await transition.finished; } catch (_) {}
+  }
+  if (ticket !== navigationId) return;
   render();
-  if (entered) content.focus({ preventScroll: true });
+  if (entered) content.focus({preventScroll:true});
+  if (animate) {
+    transition.cancel();
+    transition = content.animate([{opacity:0},{opacity:1}], {duration:220,easing:'ease-out',fill:'forwards'});
+    try { await transition.finished; } catch (_) {}
+  }
+  if (ticket !== navigationId) return;
+  if (transition) { transition.cancel(); transition = null; }
+  const route = window.AshenReader.resolve(location.hash);
+  if (entered && route) window.AshenReader.mount(route);
 });
 toggle.addEventListener('click', () => {
   const open = sidebar.classList.toggle('open');

@@ -15,3 +15,16 @@
 بعد استبدال الفصل التجريبي بفصل حقيقي، استخدم معرفًا جديدًا ثابتًا كي لا يرث النص الجديد تقدم الاختبار. النص التجريبي لا يُعتمد ضمن عالم الرواية.
 
 التحقق: فحص JavaScript والمسارات المحلية، ومحاكاة حفظ واسترجاع الموضع وتبديل اللغة والبيانات التالفة وتعذر التخزين وإلغاء التحميل والتعامل الآمن مع النصوص. لم تتوفر معاينة متصفح في جلسة التنفيذ.
+
+## Reading appearance and motion
+
+` scripts/reader-settings.js ` owns the reading controls and persists font, size,
+line spacing and dark/paper/light theme in `ashen.reader-settings.v1`.
+Six font names appear in English. Amiri and Cormorant Garamond are bundled;
+other choices use installed system fonts, with fallbacks for unavailable fonts
+or unsupported Arabic glyphs. Appearance applies to the reader only.
+
+Section and chapter navigation fades the content without moving the fixed sidebar.
+Saved positions restore after fonts are ready with a bounded eased scroll.
+Progress is not overwritten during restoration; user scrolling interrupts it.
+Reduced-motion preferences skip both effects.
