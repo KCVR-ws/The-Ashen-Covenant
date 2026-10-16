@@ -35,5 +35,11 @@ window.AshenPages.home = {
 </div>
 </div>
 </section>
+<section class="home-quote" aria-label="اقتباس من الرواية">
+  <span class="quote-ornament" aria-hidden="true">◆</span>
+  <blockquote>
+    <p>«بأيّ حقّ يحكم الغرابُ على الأسد؟»</p>
+  </blockquote>
+</section>
 `
 };
