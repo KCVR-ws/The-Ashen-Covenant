@@ -150,3 +150,7 @@ body.intro-active { overflow: hidden; }
 .instagram-link bdi { font-family: Georgia, serif; font-size: 15px; color: #b9aa96; }
 .instagram-link:hover { color: #f0d5ae; border-color: #b58b55; background: #b88f5c0d; }
 .instagram-link svg { flex-shrink: 0; }
+
+/* Hide the outer scrollbar while retaining wheel, touch and keyboard scrolling. */
+html, body { scrollbar-width: none; }
+html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; width: 0; height: 0; }
