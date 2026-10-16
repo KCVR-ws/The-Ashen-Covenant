@@ -47,5 +47,17 @@ window.AshenPages.home = {
   <p class="author-note-text">بدأت فكرة <bdi dir="ltr">The Ashen Covenant</bdi> لأن نهاية «صراع العروش» ما كانت النهاية اللي تمنّيتها. ومن هون قررت أخوض تجربة الكتابة، وأبني عالمًا خاصًا فيّ، بممالكه وصراعاته وشخصياته، وأسعى لنهاية تليق بالرحلة وبالقارئ، إن شاء الله.</p>
   <p class="author-signature"><span aria-hidden="true">— </span><bdi dir="ltr">Kcvr</bdi></p>
 </section>
+<section class="home-social" aria-label="حسابات التواصل">
+  <span class="social-label">تابعني على</span>
+  <a class="instagram-link" href="https://www.instagram.com/kcvr.1/?hl=ar" target="_blank" rel="noopener noreferrer" aria-label="إنستغرام Kcvr — يفتح في تبويب جديد">
+    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+      <rect x="3" y="3" width="18" height="18" rx="5"></rect>
+      <circle cx="12" cy="12" r="4"></circle>
+      <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"></circle>
+    </svg>
+    <span>إنستغرام</span>
+    <bdi dir="ltr">@kcvr.1</bdi>
+  </a>
+</section>
 `
 };
