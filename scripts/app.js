@@ -16,18 +16,22 @@ function closeMenu() {
   scrim.hidden = true;
 }
 function render() {
+  window.AshenReader.unmount();
+  const route = window.AshenReader.resolve(location.hash);
   const key = location.hash.slice(1);
-  const page = Object.hasOwn(window.AshenPages, key) ? key : 'home';
+  const page = route ? 'chapters' : (Object.hasOwn(window.AshenPages, key) ? key : 'home');
   const section = window.AshenPages[page];
-  content.innerHTML = section.html;
+  content.innerHTML = route ? window.AshenReader.page(route) : (section.render ? section.render() : section.html);
   content.dataset.page = page;
-  document.getElementById('page-label').textContent = section.title;
+  document.getElementById('page-label').textContent = route ? 'قراءة الفصل' : section.title;
+  if (page === 'home') window.AshenReader.decorateHome();
   document.querySelectorAll('[data-page]').forEach(a => {
     if (a.dataset.page === page) a.setAttribute('aria-current', 'page');
     else a.removeAttribute('aria-current');
   });
   closeMenu();
   window.scrollTo(0, 0);
+  if (route && entered) window.AshenReader.mount(route);
 }
 let entering = false;
 let entered = false;
@@ -35,8 +39,7 @@ function enterSite(event) {
   if (entering || event.source !== intro.contentWindow || event.data !== 'ashen:enter') return;
   entering = true;
   window.removeEventListener('message', enterSite);
-  history.replaceState(null, '', '#home');
-  if (content.dataset.page !== 'home') render();
+  if (!location.hash) history.replaceState(null, '', '#home');
   site.classList.add('entering');
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
   let finished = false;
@@ -53,6 +56,8 @@ function enterSite(event) {
     document.body.classList.remove('intro-active');
     entered = true;
     content.focus({ preventScroll: true });
+    const route = window.AshenReader.resolve(location.hash);
+    if (route) window.AshenReader.mount(route);
   }
   function onTransitionEnd(event) {
     if (event.target === site && event.propertyName === 'opacity') finish();
@@ -68,7 +73,7 @@ function enterSite(event) {
 window.addEventListener('message', enterSite);
 window.addEventListener('hashchange', () => {
   render();
-  if (entered) content.focus();
+  if (entered) content.focus({ preventScroll: true });
 });
 toggle.addEventListener('click', () => {
   const open = sidebar.classList.toggle('open');

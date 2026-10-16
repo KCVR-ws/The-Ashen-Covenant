@@ -32,6 +32,7 @@ window.AshenPages.home = {
 <div class="actions">
 <a href="#chapters" class="primary">ابدأ القراءة <span aria-hidden="true">←</span>
 </a>
+<p id="home-reading-details" class="home-reading-details"></p>
 </div>
 </div>
 </section>

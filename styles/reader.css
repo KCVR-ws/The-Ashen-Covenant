@@ -1,0 +1,44 @@
+/* قائمة الفصول وصفحة القراءة؛ مستقلة عن تنسيق الرئيسية. */
+.chapters-page { max-width: 1100px; margin: auto; padding: 44px 6% 90px; }
+.chapters-page h1 { margin-bottom: 12px; }
+.chapters-description { color: #b9ad9c; font-size: 21px; line-height: 1.8; margin: 0 0 34px; }
+.chapter-list { list-style: none; padding: 0; margin: 0; border-top: 1px solid #a7834c45; }
+.chapter-list li { border-bottom: 1px solid #a7834c35; }
+.chapter-list-link { display: flex; align-items: center; gap: 24px; padding: 26px 20px; transition: background .2s; }
+.chapter-list-link:hover { background: #b88f5c0c; }
+.chapter-number { color: #b89260; font-family: 'Cormorant Garamond', Georgia, serif; font-size: 36px; }
+.chapter-list-copy { display: grid; gap: 6px; }
+.chapter-list-copy strong { color: #e5d1b1; font-weight: 400; font-size: 26px; }
+.chapter-list-copy > span { color: #aa9d8a; font-size: 16px; }
+.chapter-list-arrow { margin-right: auto; color: #c6a16e; font-size: 24px; }
+.reader-page { max-width: 1000px; margin: 0 auto; padding: 30px 6% 65px; }
+.reader-toolbar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 18px; padding-bottom: 24px; border-bottom: 1px solid #a7834c35; }
+.reader-back { color: #cdb48e; font-size: 18px; }
+.reader-languages { display: flex; border: 1px solid #a7834c55; border-radius: 3px; overflow: hidden; }
+.reader-languages a { padding: 9px 18px; color: #ad9e8b; font-size: 17px; line-height: 1.5; }
+.reader-languages a[aria-current] { color: #efd2a5; background: #b88f5c20; }
+.reader-languages a[lang="en"] { font-family: Georgia, serif; font-size: 15px; }
+.demo-notice { margin: 24px 0; padding: 10px 15px; border-right: 2px solid #b88f5c; color: #c9b18d; background: #b88f5c0c; line-height: 1.8; font-size: 17px; }
+.reader-heading { padding: 22px 0 35px; }
+.reader-heading h1 { margin-bottom: 18px; }
+.reader-heading h1[lang="en"] { font-family: 'Cormorant Garamond', Georgia, serif; }
+.reader-note { font-size: 16px; line-height: 1.8; color: #ab9d88; margin: 0; }
+.chapter-text { font-size: 24px; line-height: 2.15; color: #ded4c3; max-width: 760px; margin: auto; overflow-wrap: break-word; }
+.chapter-text p { margin: 0 0 1.05em; }
+.chapter-text[lang="en"] { font-family: Georgia, serif; font-size: 20px; line-height: 1.95; }
+.chapter-end { text-align: center; color: #b79a73; font-size: 18px; padding: 30px 0; margin: 30px 0 0; }
+.chapter-navigation { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 18px; border-top: 1px solid #a7834c40; padding-top: 26px; color: #d4b482; font-size: 18px; }
+.reader-nav-link { padding: 8px 0; }
+.reader-nav-link.unavailable { color: #796f60; cursor: default; }
+.home-reading-details { margin: 12px 0 0; color: #b5a18a; font-size: 16px; line-height: 1.8; }
+@media (max-width: 720px) {
+  .reader-page, .chapters-page { padding: 25px 7% 45px; }
+  .chapter-list-link { padding: 22px 8px; gap: 16px; }
+  .chapter-list-copy strong { font-size: 23px; }
+  .reader-toolbar { gap: 16px; }
+  .chapter-text { font-size: 22px; line-height: 2; }
+  .chapter-text[lang="en"] { font-size: 19px; line-height: 1.9; }
+  .reader-heading { padding-bottom: 22px; }
+  .chapter-navigation { font-size: 16px; gap: 12px; }
+}
+@media (prefers-reduced-motion: reduce) { .chapter-list-link { transition: none; } }
