@@ -1,13 +1,24 @@
-# The Ashen Covenant
+# دليل ملفات الموقع
 
-First review version: supplied animated intro and Arabic homepage with supplied cover and synopsis.
+| الملف | الغرض |
+| --- | --- |
+| `index.html` | الهيكل الأساسي وتحميل الملفات |
+| `pages/intro.html` | الصفحة الافتتاحية وزر الدخول |
+| `pages/home.js` | الرئيسية: الغلاف والنبذة وزر القراءة |
+| `pages/chapters.js` | قسم الفصول |
+| `pages/world.js` | قسم عالم الرواية |
+| `pages/settings.js` | قسم إعدادات الموقع |
+| `styles/site.css` | تنسيق الموقع واستجابته للموبايل |
+| `styles/intro.css` | حركات وتنسيق الافتتاحية |
+| `styles/fonts.css` | الخطوط المحلية المشتركة |
+| `scripts/sidebar.js` | القائمة الجانبية المشتركة |
+| `scripts/app.js` | الدخول والتنقل بين الأقسام |
+| `assets/cover.webp` | غلاف الرواية |
 
-Open `index.html` in a browser. No installation, build, or external asset requests are needed. The welcome page appears on every full page load, but not when navigating sections.
+ملفات الأقسام بصيغة JavaScript تحتوي اسم القسم وHTML الخاص به. عند تغيير محتوى قسم، عدّل ملفه فقط. هذه الملفات جزء موثوق من الكود؛ لا تُستخدم لإدخال HTML من الزوار.
 
-The right sidebar stays on the right. Chapters, world, and settings are explicitly empty placeholders for the next stages. On small screens the right sidebar opens with the menu button.
+لتجربة الموقع، نزّل المستودع كاملًا وافتح index.html، أو شغّل python -m http.server من مجلد المشروع. لم يعد index.html ملفًا مستقلًا.
 
-Only chapter content will eventually switch between Arabic and English. This first version does not contain chapters, accounts, a CMS, or backend services.
+الافتتاحية تظهر عند تحميل الموقع وتختفي بزر الدخول؛ لا تعود أثناء التنقل. باقي الأقسام مؤقتة. الواجهة عربية وتبديل لغة الفصول سيضاف عند بناء قسم الفصول.
 
-Fonts are embedded from the supplied intro; their license notices remain in index.html.
-
-To host on GitHub Pages, select Settings → Pages → Deploy from a branch → main → /(root). Hosting has not been enabled by this change.
+للخطوط تراخيص في assets/fonts/LICENSE.txt. لا يتطلب الموقع تثبيت مكتبات أو عملية بناء.

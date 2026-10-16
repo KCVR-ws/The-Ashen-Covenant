@@ -1,0 +1,115 @@
+/* arabic */
+
+/* latin-ext */
+
+/* latin */
+
+/* arabic */
+
+/* latin-ext */
+
+/* latin */
+
+/* cyrillic-ext */
+
+/* cyrillic */
+
+/* vietnamese */
+
+/* latin-ext */
+
+/* latin */
+
+/* cyrillic-ext */
+
+/* cyrillic */
+
+/* vietnamese */
+
+/* latin-ext */
+
+/* latin */
+
+/* cyrillic-ext */
+
+/* cyrillic */
+
+/* vietnamese */
+
+/* latin-ext */
+
+/* latin */
+
+
+
+body{margin:0;background:#0e0d0c}
+a{color:#a39d94;text-decoration:none}
+a:hover{color:#e9e4da}
+@keyframes rise{
+0%{transform:translate3d(0,0,0) scale(1);opacity:0}
+10%{opacity:.95}
+65%{opacity:.5}
+100%{transform:translate3d(var(--dx),-95vh,0) scale(.35);opacity:0}
+}
+@keyframes fall{
+0%{transform:translate3d(0,-8vh,0) rotate(0deg);opacity:0}
+12%{opacity:.55}
+85%{opacity:.35}
+100%{transform:translate3d(var(--dx),108vh,0) rotate(var(--r));opacity:0}
+}
+@keyframes drift{
+0%{transform:translate3d(-4%,0,0) scale(1);opacity:.7}
+100%{transform:translate3d(5%,-6%,0) scale(1.18);opacity:1}
+}
+@keyframes breathe{
+0%,100%{opacity:.55}
+50%{opacity:.9}
+}
+@keyframes spin{
+from{transform:rotate(0deg)}
+to{transform:rotate(360deg)}
+}
+@keyframes spinBack{
+from{transform:rotate(360deg)}
+to{transform:rotate(0deg)}
+}
+@keyframes fadeUp{
+0%{opacity:0;transform:translateY(22px)}
+100%{opacity:1;transform:translateY(0)}
+}
+@keyframes drawDown{
+0%{transform:scaleY(0)}
+100%{transform:scaleY(1)}
+}
+@keyframes pulse{
+0%,100%{box-shadow:0 0 0 0 rgba(226,105,58,0),inset 0 0 0 0 rgba(226,105,58,0)}
+50%{box-shadow:0 0 28px 2px rgba(226,105,58,.28),inset 0 0 18px 0 rgba(226,105,58,.12)}
+}
+@keyframes flicker{
+0%,100%{opacity:1}
+46%{opacity:.92}
+50%{opacity:.78}
+54%{opacity:.96}
+}
+.ember{position:absolute;bottom:-14px;border-radius:50%;background:#ea7240;box-shadow:0 0 10px 2px rgba(226,105,58,.55);opacity:0;animation-name:rise;animation-timing-function:ease-out;animation-iteration-count:infinite}
+.ember.soft{filter:blur(1.2px);box-shadow:0 0 16px 4px rgba(226,105,58,.45)}
+.flake{position:absolute;top:-10px;background:#8d867d;border-radius:1px;opacity:0;animation-name:fall;animation-timing-function:linear;animation-iteration-count:infinite}
+.smoke{position:absolute;border-radius:50%;filter:blur(48px);animation:drift 22s ease-in-out infinite alternate}
+.spin{transform-origin:400px 400px;animation:spin 140s linear infinite}
+.spinBack{transform-origin:400px 400px;animation:spinBack 95s linear infinite}
+.title{background:linear-gradient(180deg,#f8f2e6 22%,#ecd2b0 55%,#e2693a 120%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;filter:drop-shadow(0 0 26px rgba(226,105,58,.22));animation:flicker 7s ease-in-out infinite}
+.enter{position:relative;display:inline-flex;align-items:center;justify-content:center;min-height:56px;padding:0 56px;border:1px solid rgba(226,105,58,.85);background:rgba(226,105,58,.04);color:#f4eee2;font-family:'Amiri',serif;font-size:22px;letter-spacing:.04em;transition:background .3s,color .3s,border-color .3s;animation:pulse 4.5s ease-in-out infinite}
+.enter:hover{background:#e2693a;color:#0e0d0c;border-color:#e2693a}
+.enter:focus-visible,a:focus-visible{outline:2px solid #e9e4da;outline-offset:5px}
+.in1{animation:fadeUp 1.4s ease-out .3s both}
+.in2{animation:fadeUp 1.6s ease-out .7s both}
+.in3{animation:fadeUp 1.4s ease-out 1.3s both}
+.in4{animation:fadeUp 1.4s ease-out 1.7s both}
+.in5{animation:fadeUp 1.4s ease-out 2.1s both}
+.thread{transform-origin:top center;animation:drawDown 1.8s ease-out .1s both}
+@media (prefers-reduced-motion:reduce){
+.ember,.flake,.smoke,.spin,.spinBack,.title,.enter,.in1,.in2,.in3,.in4,.in5,.thread{animation:none}
+.ember{opacity:.5}
+}
+
+html,body{min-height:100%;}main{min-height:85svh;box-sizing:border-box} @media(max-width:600px){main{padding-bottom:60px!important}.thread{height:50px!important;margin-bottom:24px!important}.title{font-size:clamp(48px,13vw,76px)!important}} 
