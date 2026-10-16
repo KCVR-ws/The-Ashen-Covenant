@@ -9,9 +9,9 @@
 body.intro-active { overflow: hidden; }
 #intro { opacity: 1; transition: opacity 700ms ease; }
 #intro.is-leaving { opacity: 0; pointer-events: none; }
-#site { opacity: 1; transform: none; transition: opacity 850ms ease, transform 850ms cubic-bezier(.2,.65,.3,1); }
-#site.awaiting-entry { opacity: 0; transform: translateY(12px); pointer-events: none; }
-#site.entering { will-change: opacity, transform; }
+#site { opacity: 1; transition: opacity 850ms ease; }
+#site.awaiting-entry { opacity: 0; pointer-events: none; }
+#site.entering { will-change: opacity; }
 @media (prefers-reduced-motion: reduce) {
   #site, #intro { transition: none !important; transform: none !important; }
 }
