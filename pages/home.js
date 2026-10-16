@@ -41,5 +41,11 @@ window.AshenPages.home = {
     <p>«بأيّ حقّ يحكم الغرابُ على الأسد؟»</p>
   </blockquote>
 </section>
+<section class="author-note" aria-labelledby="author-note-title">
+  <p class="eyebrow">خلف الحكاية</p>
+  <h2 id="author-note-title">كلمة الكاتب</h2>
+  <p class="author-note-text">بدأت فكرة <bdi dir="ltr">The Ashen Covenant</bdi> لأن نهاية «صراع العروش» ما كانت النهاية اللي تمنّيتها. ومن هون قررت أخوض تجربة الكتابة، وأبني عالمًا خاصًا فيّ، بممالكه وصراعاته وشخصياته، وأسعى لنهاية تليق بالرحلة وبالقارئ، إن شاء الله.</p>
+  <p class="author-signature"><span aria-hidden="true">— </span><bdi dir="ltr">Kcvr</bdi></p>
+</section>
 `
 };
