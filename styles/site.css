@@ -66,3 +66,27 @@ body.intro-active { overflow: hidden; }
 #home .novel-status > span { width: 6px; height: 6px; border-radius: 50%; background: #9caf83; }
 #home .novel-genres { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; padding: 0; margin: 14px 0 0; }
 #home .novel-genres li { padding: 3px 13px; border: 1px solid #a7834c40; background: #b88f5c08; border-radius: 3px; font-size: 16px; line-height: 1.7; color: #c9b18d; }
+
+/* A quiet, standalone quotation below the homepage introduction. */
+.home-quote {
+  margin: 0 6%;
+  padding: clamp(38px, 6vw, 72px) 16px clamp(46px, 7vw, 84px);
+  text-align: center;
+  border-top: 1px solid #a7834c40;
+}
+.home-quote .quote-ornament {
+  display: block;
+  color: #a57445;
+  font-size: 11px;
+  margin-bottom: 22px;
+}
+.home-quote blockquote { margin: 0 auto; max-width: 800px; }
+.home-quote p {
+  margin: 0;
+  font-family: Amiri, Georgia, serif;
+  font-size: clamp(27px, 3.5vw, 46px);
+  font-weight: 400;
+  line-height: 1.8;
+  color: #d7b17b;
+  text-wrap: balance;
+}
