@@ -53,3 +53,7 @@ body.intro-active { overflow: hidden; }
   #home .copy { padding-top: 0; max-width: none; }
   #home .synopsis { font-size: 21px; line-height: 1.95; }
 }
+
+/* Supplied compass emblem, shared with the browser favicon. */
+.brand .sigil { line-height: 0; margin-bottom: 16px; }
+.brand-logo { display: block; width: 76px; height: 76px; object-fit: contain; margin: 0 auto; }
