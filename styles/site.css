@@ -123,3 +123,30 @@ body.intro-active { overflow: hidden; }
   .author-note { padding: 30px 2% 38px; }
   .author-note-text { font-size: 20px; }
 }
+
+/* Homepage social links. */
+.home-social {
+  margin: 0 6%;
+  padding: 26px 0 34px;
+  border-top: 1px solid #a7834c30;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px 24px;
+}
+.social-label { color: #b7aa97; font-size: 18px; }
+.instagram-link {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  color: #d8b88c;
+  border: 1px solid #a7834c45;
+  padding: 10px 16px;
+  border-radius: 3px;
+  font-size: 18px;
+  transition: color .2s, background-color .2s, border-color .2s;
+}
+.instagram-link bdi { font-family: Georgia, serif; font-size: 15px; color: #b9aa96; }
+.instagram-link:hover { color: #f0d5ae; border-color: #b58b55; background: #b88f5c0d; }
+.instagram-link svg { flex-shrink: 0; }
