@@ -17,6 +17,18 @@ window.AshenPages.home = {
 <p>وبين الولاءات المتصدعة والأسرار المدفونة، لازم كل واحد يختار:</p>
 <p class="synopsis-question">يحمي عهدًا مبنيًا على كذبة، أو يكشف الحقيقة ويحرق العالم الذي عرفه؟</p>
 </div>
+<div class="novel-meta" aria-label="معلومات الرواية">
+  <div class="novel-byline">
+    <span>بقلم <bdi class="author-name" dir="ltr">Kcvr</bdi></span>
+    <span class="novel-status"><span aria-hidden="true"></span>مستمرة</span>
+  </div>
+  <ul class="novel-genres" aria-label="تصنيفات الرواية">
+    <li>ممالك</li>
+    <li>فانتازيا</li>
+    <li>عشائر</li>
+    <li>دراما</li>
+  </ul>
+</div>
 <div class="actions">
 <a href="#chapters" class="primary">ابدأ القراءة <span aria-hidden="true">←</span>
 </a>
