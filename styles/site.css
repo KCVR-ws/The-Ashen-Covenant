@@ -90,3 +90,36 @@ body.intro-active { overflow: hidden; }
   color: #d7b17b;
   text-wrap: balance;
 }
+
+/* The author's approved personal note below the quotation. */
+.author-note {
+  margin: 0 6%;
+  padding: 42px clamp(4px, 3vw, 40px) 52px;
+  border-top: 1px solid #a7834c30;
+}
+.author-note .eyebrow { margin-bottom: 10px; }
+.author-note h2 {
+  margin: 0 0 20px;
+  color: #ead7bc;
+  font-size: clamp(28px, 3vw, 36px);
+  font-weight: 400;
+  line-height: 1.5;
+}
+.author-note-text {
+  max-width: 780px;
+  margin: 0;
+  font-size: clamp(19px, 1.7vw, 23px);
+  line-height: 2;
+  color: #c8bdad;
+}
+.author-note-text bdi { color: #dfc49e; }
+.author-signature {
+  margin: 22px 0 0;
+  color: #cda779;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 28px;
+}
+@media (max-width: 720px) {
+  .author-note { padding: 30px 2% 38px; }
+  .author-note-text { font-size: 20px; }
+}
