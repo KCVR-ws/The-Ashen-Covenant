@@ -15,3 +15,41 @@ body.intro-active { overflow: hidden; }
 @media (prefers-reduced-motion: reduce) {
   #site, #intro { transition: none !important; transform: none !important; }
 }
+
+/* Homepage refinement: smaller top gap and a clearer reading rhythm. */
+#home.hero {
+  padding-top: 26px;
+  padding-bottom: 46px;
+  align-items: start;
+  min-height: 0;
+}
+#home .cover { align-self: start; }
+#home .cover img { max-height: 620px; }
+#home .copy { padding-top: 10px; max-width: 590px; }
+#home .eyebrow { color: #b99565; margin-bottom: 12px; font-size: 16px; }
+#home h1 {
+  color: #eedac0;
+  font-size: clamp(30px, 3vw, 44px);
+  line-height: 1.45;
+  margin-bottom: 20px;
+}
+#home .synopsis { font-size: clamp(19px, 1.6vw, 23px); line-height: 1.95; color: #cec3b3; }
+#home .synopsis p { margin: 0 0 14px; }
+#home .synopsis-highlight {
+  color: #e1aa76;
+  font-size: 1.12em;
+  padding: 8px 18px 8px 0;
+  border-right: 2px solid #a86b3e;
+  background: linear-gradient(270deg, #b8783810, transparent);
+}
+#home .synopsis-question { color: #ecddc6; margin-bottom: 0; }
+#home .actions { margin-top: 24px; }
+@media (max-width: 1000px) and (min-width: 721px) {
+  #home .synopsis { font-size: 19px; line-height: 1.85; }
+  #home h1 { font-size: 31px; }
+}
+@media (max-width: 720px) {
+  #home.hero { padding-top: 18px; gap: 24px; }
+  #home .copy { padding-top: 0; max-width: none; }
+  #home .synopsis { font-size: 21px; line-height: 1.95; }
+}
