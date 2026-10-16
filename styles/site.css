@@ -57,3 +57,12 @@ body.intro-active { overflow: hidden; }
 /* Supplied compass emblem, shared with the browser favicon. */
 .brand .sigil { line-height: 0; margin-bottom: 16px; }
 .brand-logo { display: block; width: 76px; height: 76px; object-fit: contain; margin: 0 auto; }
+
+/* Homepage author, publication status and genres. */
+#home .novel-meta { margin-top: 24px; padding-top: 18px; border-top: 1px solid #a7834c35; }
+#home .novel-byline { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; font-size: 18px; color: #c6b9a7; }
+#home .author-name { color: #eddbbe; font-family: 'Cormorant Garamond', Georgia, serif; font-size: 23px; margin-right: 6px; }
+#home .novel-status { display: inline-flex; align-items: center; gap: 8px; color: #b9c9a6; font-size: 16px; }
+#home .novel-status > span { width: 6px; height: 6px; border-radius: 50%; background: #9caf83; }
+#home .novel-genres { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; padding: 0; margin: 14px 0 0; }
+#home .novel-genres li { padding: 3px 13px; border: 1px solid #a7834c40; background: #b88f5c08; border-radius: 3px; font-size: 16px; line-height: 1.7; color: #c9b18d; }
