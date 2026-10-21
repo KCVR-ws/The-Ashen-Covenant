@@ -2,6 +2,9 @@
 window.AshenReader = (() => {
   const STORAGE_KEY = 'ashen.reading-progress.v1';
   let memory = null;
+  let chapterHistory = {};
+  let disposeControls = () => {};
+  try { const parsed=JSON.parse(localStorage.getItem('ashen.chapter-progress.v1')); if(parsed && typeof parsed==='object') chapterHistory=parsed; } catch(_) {}
   let storageAvailable = true;
   let active = null;
   let generation = 0;
@@ -16,14 +19,20 @@ window.AshenReader = (() => {
       line: Math.min(Math.max(value.line, 0), chapter.lines[value.language].length - 1) };
   }
   function progress() {
+    if (memory) return memory;
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
       return raw ? (valid(JSON.parse(raw)) || memory) : memory;
     } catch (_) { return memory; }
   }
+  function history() {
+    const result={};Object.values(chapterHistory).forEach(value=>{const checked=valid(value);if(checked)result[checked.chapterId]=checked;});
+    const last=progress();if(last)result[last.chapterId]=last;return result;
+  }
   function write(value) {
     memory = value;
-    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(value)); }
+    chapterHistory[value.chapterId]=value;
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(value)); localStorage.setItem('ashen.chapter-progress.v1',JSON.stringify(chapterHistory)); }
     catch (_) { storageAvailable = false; }
     const note = document.getElementById('reading-storage-note');
     if (note) note.textContent = storageAvailable
@@ -43,29 +52,23 @@ window.AshenReader = (() => {
     if (!chapter.lines[language]) return null;
     return { chapter, language };
   }
-  function chapterLink(chapter, label, language) {
-    return chapter
-      ? `<a class="reader-nav-link" href="${href(chapter, chapter.lines[language] ? language : 'ar')}">${label}</a>`
-      : `<span class="reader-nav-link unavailable" aria-disabled="true">${label}</span>`;
+  function chapterLink(chapter, label, language, kind) {
+    return chapter ? `<a class="reader-nav-link ${kind}" href="${href(chapter, chapter.lines[language] ? language : 'ar')}"><span>${label}</span><strong>${escape(chapter.title[language] || chapter.title.ar)}</strong></a>` : '';
   }
   function page(route) {
     const { chapter, language } = route;
     const index = window.AshenChapters.indexOf(chapter);
-    const navigation = `<nav class="chapter-navigation" aria-label="التنقل بين الفصول">${chapterLink(window.AshenChapters[index - 1], 'الفصل السابق', language)}<a href="#chapters">قائمة الفصول</a>${chapterLink(window.AshenChapters[index + 1], 'الفصل التالي', language)}</nav>`;
+    const navigation = `<nav class="chapter-navigation" aria-label="التنقل بين الفصول">${chapterLink(window.AshenChapters[index - 1], 'الفصل السابق', language, 'previous')}<a class="reader-nav-index" href="#chapters">قائمة الفصول</a>${chapterLink(window.AshenChapters[index + 1], 'الفصل التالي', language, 'next')}</nav>`;
     return `<section class="reader-page" aria-labelledby="reader-title">
-      <div class="reader-toolbar"><a href="#chapters" class="reader-back">قائمة الفصول</a>
-      <div class="reader-languages" aria-label="لغة الفصل">${['ar','en'].map(lang => chapter.lines[lang] ? `<a href="${href(chapter,lang)}" lang="${lang}"${language===lang?' aria-current="true"':''}>${lang==='ar'?'العربية':'English'}</a>` : '').join('')}</div></div>
+      <button type="button" class="focus-exit" id="focus-exit">إنهاء وضع التركيز</button><div class="reader-toolbar"><a href="#chapters" class="reader-back">قائمة الفصول</a>
+      <div class="reader-languages" aria-label="لغة الفصل">${['ar','en'].map(lang => chapter.lines[lang] ? `<a href="${href(chapter,lang)}" lang="${lang}"${language===lang?' aria-current="true"':''}>${lang==='ar'?'العربية':'English'}</a>` : '').join('')}</div><button type="button" class="reader-settings-trigger" data-open-settings="top" aria-controls="reading-settings">إعدادات القراءة</button></div>
+      <div id="settings-top">${window.AshenReadingSettings.markup()}</div>${window.AshenReaderNotes.notebook()}
       ${chapter.demo ? '<p class="demo-notice">فصل تجريبي للاختبار فقط — ليس جزءًا من أحداث الرواية.</p>' : ''}
       <header class="reader-heading"><p class="eyebrow">الفصل ${chapter.number}</p><h1 id="reader-title" lang="${language}" dir="${language==='ar'?'rtl':'ltr'}">${escape(chapter.title[language])}</h1><p id="reading-storage-note" class="reader-note"></p></header>
-      <article class="chapter-text" lang="${language}" dir="${language==='ar'?'rtl':'ltr'}">${chapter.lines[language].map((line,i)=>`<p id="reading-line-${i}" data-reading-line="${i}">${escape(line)}</p>`).join('\n')}</article>
-      ${window.AshenReadingSettings.markup()}
-      <p class="chapter-end">${chapter.demo ? 'نهاية الفصل التجريبي' : 'نهاية الفصل'}</p>${navigation}</section>`;
+      <article class="chapter-text" lang="${language}" dir="${language==='ar'?'rtl':'ltr'}">${chapter.lines[language].map((line,i)=>`<p id="reading-line-${i}" data-reading-line="${i}">${escape(line)}</p>${(i+1)%15===0?window.AshenReaderNotes.checkpoint(chapter.id,i):''}`).join('\n')}</article>
+      <p class="chapter-end">${chapter.demo ? 'نهاية الفصل التجريبي' : 'نهاية الفصل'}</p>${navigation}<div class="reader-bottom-settings"><button type="button" class="reader-settings-trigger" data-open-settings="bottom" aria-controls="reading-settings">إعدادات القراءة</button></div><div id="settings-bottom"></div></section>`;
   }
-  function list() {
-    const saved = progress();
-    return `<section id="chapters" class="chapters-page"><p class="eyebrow">بين صفحات العهد</p><h1>الفصول</h1><p class="chapters-description">الفصول مرتّبة من البداية. اختر فصلًا لتبدأ القراءة.</p>
-      <ol class="chapter-list">${window.AshenChapters.map(chapter=>`<li><a class="chapter-list-link" href="${href(chapter,saved?.chapterId===chapter.id?saved.language:'ar')}"><span class="chapter-number">${String(chapter.number).padStart(2,'0')}</span><span class="chapter-list-copy"><strong>${escape(chapter.title.ar)}</strong><span>${chapter.demo?'فصل تجريبي · للاختبار فقط':'الفصل '+chapter.number}</span></span><span class="chapter-open">قراءة الفصل<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 5c-3-2-6-2-9-1v15c3-1 6-1 9 1 3-2 6-2 9-1V4c-3-1-6-1-9 1Zm0 0v15"/></svg></span></a></li>`).join('')}</ol></section>`;
-  }
+  function list() { return window.AshenChapterLibrary.markup(); }
   function decorateHome() {
     const saved = progress();
     const button = document.querySelector('#home .actions .primary');
@@ -95,6 +98,8 @@ window.AshenReader = (() => {
     save();
     cancelRestore();
     window.AshenReadingSettings.unmount();
+    window.AshenReaderNotes.unmount();
+    disposeControls();
     clearTimeout(timer);
     generation++;
     active = null;
@@ -110,7 +115,7 @@ window.AshenReader = (() => {
     const destination = Math.max(0, Math.min(window.scrollY + paragraph.getBoundingClientRect().top - 64,
       document.documentElement.scrollHeight - window.innerHeight));
     const distance = destination - startY;
-    const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const reduced = !window.AshenReadingSettings.smooth();
     const duration = Math.min(1150, Math.max(450, Math.abs(distance) * .22));
     let startTime;
     function clear() {
@@ -149,12 +154,20 @@ window.AshenReader = (() => {
   function mount(route) {
     cancelRestore();
     const ticket = ++generation;
-    const saved = progress();
+    const saved = history()[route.chapter.id];
     active = { ...route, ready: false };
     window.AshenReadingSettings.mount();
+    window.AshenReaderNotes.mount(route);
+    const root=document.querySelector('.reader-page');
+    function controls(event) {
+      const button=event.target.closest('[data-open-settings]');
+      if(button){const panel=document.getElementById('reading-settings');document.getElementById('settings-'+button.dataset.openSettings).append(panel);panel.open=true;panel.querySelector('summary').focus({preventScroll:true});}
+      if(event.target.closest('#focus-exit'))window.AshenReadingSettings.exitFocus();
+    }
+    root.addEventListener('click',controls);disposeControls=()=>root.removeEventListener('click',controls);
     Promise.resolve(document.fonts?.ready).catch(()=>{}).then(() => requestAnimationFrame(() => {
       if (generation !== ticket || !active) return;
-      const line = saved?.chapterId === route.chapter.id ? saved.line : 0;
+      const line = saved?.chapterId === route.chapter.id ? Math.min(saved.line,route.chapter.lines[route.language].length-1) : 0;
       const paragraph = document.getElementById('reading-line-' + line);
       function ready(interrupted) {
         if (generation !== ticket || !active) return;
@@ -172,5 +185,5 @@ window.AshenReader = (() => {
       } else ready(false);
     }));
   }
-  return { resolve, page, list, mount, unmount, decorateHome, progress };
+  return { resolve, page, list, mount, unmount, decorateHome, progress, history };
 })();

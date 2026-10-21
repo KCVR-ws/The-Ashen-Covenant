@@ -24,6 +24,7 @@ function render() {
   content.dataset.page = page;
   document.getElementById('page-label').textContent = route ? 'قراءة الفصل' : section.title;
   if (page === 'home') window.AshenReader.decorateHome();
+  if (!route && page === 'chapters') window.AshenChapterLibrary.mount();
   document.querySelectorAll('[data-page]').forEach(a => {
     if (a.dataset.page === page) a.setAttribute('aria-current', 'page');
     else a.removeAttribute('aria-current');
@@ -76,6 +77,7 @@ window.addEventListener('hashchange', async () => {
   const ticket = ++navigationId;
   // Save the outgoing text before changing its DOM or scroll position.
   window.AshenReader.unmount();
+  window.AshenChapterLibrary.unmount();
   if (transition) transition.cancel();
   const animate = entered && !matchMedia('(prefers-reduced-motion: reduce)').matches && typeof content.animate === 'function';
   if (animate) {

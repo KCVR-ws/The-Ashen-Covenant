@@ -28,3 +28,32 @@ Section and chapter navigation fades the content without moving the fixed sideba
 Saved positions restore after fonts are ready with a bounded eased scroll.
 Progress is not overwritten during restoration; user scrolling interrupts it.
 Reduced-motion preferences skip both effects.
+
+## Chapter library, annotations and expanded controls
+
+- `scripts/chapter-library.js` groups chapter numbers in folders of 20, remembers
+  folder expansion for the current visit, and searches all folders by title or
+  exact chapter number. Arabic and Persian digits are normalized. The most recent
+  chapter's folder opens automatically, and a resume card links to it.
+- `scripts/reader-notes.js` inserts a collapsed annotation after every 15 logical
+  paragraphs. Notes have an event/character/theory category and a 3,000-character
+  limit. They autosave locally, support editing/deletion, and appear in the
+  chapter's notebook with a jump back to each annotation. Notes share paragraph
+  anchors between translations. Reordering published paragraphs requires a
+  migration of stored notes and progress.
+- `scripts/reader-settings.js` now also controls text width, paragraph spacing,
+  focus mode, annotation visibility and smooth/direct position restoration.
+  A single inline panel moves between the top and bottom settings buttons.
+  Focus mode has an explicit exit button and is removed on navigation away.
+- `ashen.chapter-progress.v1` stores progress per chapter; the original
+  `ashen.reading-progress.v1` still identifies the most recently read chapter.
+  Existing progress and appearance settings remain compatible.
+- `ashen.reader-notes.v1` stores annotations on this browser only. No account or
+  cross-device synchronization is implied. Failed storage writes show a warning
+  and retain edits in memory for the current visit.
+- Demo `test-02`, “الدفتر الأزرق / The Blue Notebook”, contains 60 corresponding
+  paragraphs per language and four annotation points. It is not novel canon.
+- Previous/next links appear only when their destination exists and show its title.
+
+Run `node tests/reader.test.cjs` for storage, search, navigation, annotation and
+restoration regression checks. These are DOM-mock tests, not visual browser QA.
